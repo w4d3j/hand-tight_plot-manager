@@ -217,7 +217,7 @@ def madplot(say_when=1, shiteating_layover=False)
 madflag = False
 numplots = 1
 layover = False
-options = getopt.getopt(sys.argv[1:], 'mns', ['solo',
+optns = getopt.getopt(sys.argv[1:], 'mns', ['solo',
                                             'mad',
                                             'madonly'
                                             'num=',
@@ -227,7 +227,7 @@ options = getopt.getopt(sys.argv[1:], 'mns', ['solo',
                                             'shitlay'
                                             'eatshit'
                                             ])
-for opt, arg in options:
+for opt, arg in optns:
     if opt in ('-m', '--solo', '--mad', '--madonly'):
         madflag = True
     elif opt in ('-n', '--num', '--plots', '--numplots'):
