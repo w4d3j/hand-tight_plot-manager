@@ -65,7 +65,7 @@ def shitmove():
     nasty = Bitch('nastybitch')
     stanky = Bitch('stankybitch')
 
-    bitchlist = [lazy, nasty, little, stanky, old]
+    bitchlist = [lazy, stanky, nasty, little, old]
 
     o = 'old'
     f = 'free'
@@ -81,26 +81,34 @@ def shitmove():
         thisbitch = bitchlist[i]
         if thisbitch.disk_[f] > 456:
             alpha.append(thisbitch)
-            print('''added {} to ALPHA list, it has plenty of room, \
-                {} total'''.format(thisbitch.name, len(alpha)))
+            print('''added {0} to ALPHA list, it has {1} gigs available, \
+                ALPHA now has {2} \
+                total'''.format(thisbitch.name,
+                                thisbitch.disk_[f], len(alpha)))
         elif thisbitch.numplots[o] > 3:
             beta.append(thisbitch)
-            print('''added {} to BETA list because we can make \
-                plenty of room by deleting old plots, \
-                    {} total'''.format(thisbitch.name, len(beta)))
+            print('''added {0} to BETA list because we can make \
+                plenty of room by deleting {1} old plots.
+                ({2} gigs available). BETAA now has {3} \
+                total'''.format(thisbitch.name, len(thisbitch.plots[d]),
+                                thisbitch.disk_[f], len(beta)))
         elif thisbitch.numplots[o] > 0:
             gamma.append(thisbitch)
-            print('''added {} to GAMMA list because we can make \
-                a little room by deleting old plots, \
-                    {} total'''.format(thisbitch.name, len(gamma)))
+            print('''added {0} to GAMMA list because we can make \
+                a little room by deleting {1} old plots.
+                ({2} gigs available). GAMMA now has {3} \
+                total'''.format(thisbitch.name, len(thisbitch.plots[d]),
+                                thisbitch.disk_[f], len(gamma)))
         elif thisbitch.disk_[f] >= 102:
             delta.append(thisbitch)
-            print('''added {} to DELTA list because there are \
-                no more old plots but there is enough \
-                    space, {} total'''.format(thisbitch.name, len(delta)))
+            print('''added {0} to DELTA list because there are \
+                no ({1}) more old plots but there is enough \
+                space ({2} gigs), DELTA now has {2} total'''.format(
+                        thisbitch.name, len(thisbitch.plots[o]),
+                        thisbitch.disk_[f], len(delta)))
         else:
             print('IDKWTFIGO')
-            type
+
     if len(alpha) >= 3:
         omega = alpha[:3]
         print('''ALPHA had 3+ bitches, scooping them into \
