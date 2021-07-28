@@ -1,7 +1,7 @@
-import getopt
+# import getopt
 import glob
 import os
-import sys
+# import sys
 from pathlib import Path
 from subprocess import Popen
 
@@ -103,7 +103,8 @@ def shitmove():
             type
     if len(alpha) >= 3:
         omega = alpha[:3]
-        print('ALPHA had 3+ bitches, scooping them into OMEGA: {0}'.format(omega))
+        print('''ALPHA had 3+ bitches, scooping them into \
+            OMEGA: {0}'''.format(omega))
     else:
         omega = alpha
         print('now omega = alpha = {0}'.format(omega))
@@ -111,7 +112,8 @@ def shitmove():
         print('epsilon = beta + gamma = {0}'.format(epsilon))
         remains = 3 - len(omega)
         remainingbitches = epsilon[:remains]
-        print('pulling {0} bitches from epsilon to fill omega to 3'.format(remainingbitches))
+        print('''pulling {0} bitches from epsilon \
+            to fill omega to 3'''.format(remainingbitches))
         if len(remainingbitches) > 0:
             for bitch in remainingbitches:
                 print('deleting plots {0}'.format(bitch.plots[d]))
@@ -140,29 +142,33 @@ def rsyncSE(drivelist):
     copyplots = []
     for plot in Path('/home/wade/x/shiteater').glob("*.plot"):
         copyplots.append(str(plot))
-        print ('..appended {0} to copyplots'.format(plot))
+        print('..appended {0} to copyplots'.format(plot))
     for i in range(len(copyplots)):
         todir = str(drivelist[i].path)
         copyplot = copyplots[i]
         command = [rs, avh, rsf, '--progress', copyplot, todir]
         commands.append(command)
-        print('..appended command {0} ([rs, avh, rsf, --progress, copyplot, todir]) to commands list'.format(command))
+        print('''..appended command {0} ([rs, avh, rsf, --progress, copyplot, \
+            todir]) to commands list'''.format(command))
     runningcmds = []
     if len(commands) > 0:
         p1 = Popen(commands[0])
         runningcmds.append(p1)
-        print('if len(commands) > 0, p1 = Popen({0}) and append to runningcmds'.format(commands[0]))
+        print('''if len(commands) > 0, p1 = Popen({0}) and \
+            append to runningcmds'''.format(commands[0]))
     if len(commands) > 1:
         p2 = Popen(commands[1])
         runningcmds.append(p2)
-        print('if len(commands) > 1, p2 = Popen({0}) and append to runningcmds'.format(commands[1]))
+        print('''if len(commands) > 1, p2 = Popen({0}) and \
+            append to runningcmds'''.format(commands[1]))
     if len(commands) > 2:
         p3 = Popen(commands[2])
         runningcmds.append(p3)
-        print('if len(commands) > 2, p3 = Popen({0}) and append to runningcmds'.format(commands[2]))
+        print('''if len(commands) > 2, p3 = Popen({0}) and \
+            append to runningcmds'''.format(commands[2]))
     exitcodes = []
     for p in runningcmds:
-        print('Waiting on {0} to finish...'.format(p) )
+        print('Waiting on {0} to finish...'.format(p))
         exitcodes.append(p.wait())
     return exitcodes
 
@@ -202,7 +208,8 @@ def shitplot():
         turdcopy.wait()
         shits = glob.glob(se + "/*.plot")
         if len(shits) >= 3:
-            print('Plots found on shiteater, running shitmove and rshytc on {0}'.format(shits))
+            print('''Plots found on shiteater, running shitmove \
+                and rshytc on {0}'''.format(shits))
             weeoo = shitmove()
             print('..shitmove complete: {0}\nStarting rshytc'.format(weeoo))
             rsyncSE(weeoo)
@@ -219,7 +226,7 @@ def madplot(say_when=1, shiteating_layover=False):
     if say_when > 5:
         shiteating_layover = True
     d_args = []
-    if shiteating_layover == True:
+    if shiteating_layover is True:
         d_args = ['-d', se]
     mdmx = ['chia_plot',
             '-n', say_when,
