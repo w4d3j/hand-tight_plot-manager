@@ -63,8 +63,9 @@ def shitmove():
     # stuckup = Bitch('stuckupbitch')
     # nosy = Bitch('nosybitch')
     nasty = Bitch('nastybitch')
+    stanky = Bitch('stankybitch')
 
-    bitchlist = [lazy, nasty, little, old]
+    bitchlist = [lazy, nasty, little, stanky, old]
 
     o = 'old'
     f = 'free'
@@ -76,6 +77,7 @@ def shitmove():
     omega = []
 
     for i in range(len(bitchlist)):
+        print('Bitchlist includes: {0}'.format(bitchlist))
         thisbitch = bitchlist[i]
         if thisbitch.disk_[f] > 456:
             alpha.append(thisbitch)
@@ -101,21 +103,30 @@ def shitmove():
             type
     if len(alpha) >= 3:
         omega = alpha[:3]
+        print('ALPHA had 3+ bitches, scooping them into OMEGA: {0}'.format(omega))
     else:
         omega = alpha
+        print('now omega = alpha = {0}'.format(omega))
         epsilon = beta + gamma
+        print('epsilon = beta + gamma = {0}'.format(epsilon))
         remains = 3 - len(omega)
         remainingbitches = epsilon[:remains]
+        print('pulling {0} bitches from epsilon to fill omega to 3'.format(remainingbitches))
         if len(remainingbitches) > 0:
             for bitch in remainingbitches:
+                print('deleting plots {0}'.format(bitch.plots[d]))
                 for delplot in bitch.plots[d]:
                     delplot.unlink()
-                    omega.append(bitch)
+                print('appending {0} to OMEGA'.format(bitch.name))
+                omega.append(bitch)
+                print('OMEGA is now {0}'.format(omega))
         omega += delta
+        print('added delta to OMEGA, now omega is {0}'.format(omega))
     if len(omega) != 3:
         print("Omega has {} entries, figure it out bud".format(len(omega)))
     if len(omega) > 3:
         omega = omega[:3]
+        print('trimmed OMEGA to len 3: {0}'.format(omega))
     return omega
 
 
@@ -129,22 +140,29 @@ def rsyncSE(drivelist):
     copyplots = []
     for plot in Path('/home/wade/x/shiteater').glob("*.plot"):
         copyplots.append(str(plot))
+        print ('..appended {0} to copyplots'.format(plot))
     for i in range(len(copyplots)):
         todir = str(drivelist[i].path)
         copyplot = copyplots[i]
-        commands.append([rs, avh, rsf, '--progress', copyplot, todir])
+        command = [rs, avh, rsf, '--progress', copyplot, todir]
+        commands.append(command)
+        print('..appended command {0} ([rs, avh, rsf, --progress, copyplot, todir]) to commands list'.format(command))
     runningcmds = []
     if len(commands) > 0:
         p1 = Popen(commands[0])
         runningcmds.append(p1)
+        print('if len(commands) > 0, p1 = Popen({0}) and append to runningcmds'.format(commands[0]))
     if len(commands) > 1:
         p2 = Popen(commands[1])
         runningcmds.append(p2)
+        print('if len(commands) > 1, p2 = Popen({0}) and append to runningcmds'.format(commands[1]))
     if len(commands) > 2:
         p3 = Popen(commands[2])
         runningcmds.append(p3)
+        print('if len(commands) > 2, p3 = Popen({0}) and append to runningcmds'.format(commands[2]))
     exitcodes = []
     for p in runningcmds:
+        print('Waiting on {0} to finish...'.format(p) )
         exitcodes.append(p.wait())
     return exitcodes
 
@@ -180,14 +198,18 @@ def shitplot():
             turdcmd = ['echo', '''"  |:-:--     NO TURDS TODAY, FOLKS       -:\
 |:-       We'll get em next time      --:-:| "''']
         turdcopy = Popen(turdcmd)
+        print('Turd command started {0} -- waiting...'.format(turdcmd))
         turdcopy.wait()
-        if len(glob.glob(se + "/*.plot")) >= 3:
+        shits = glob.glob(se + "/*.plot")
+        if len(shits) >= 3:
+            print('Plots found on shiteater, running shitmove and rshytc on {0}'.format(shits))
             weeoo = shitmove()
+            print('..shitmove complete: {0}\nStarting rshytc'.format(weeoo))
             rsyncSE(weeoo)
         plotter.wait()
 
 
-def madplot(say_when=1, shiteating_layover=False)
+def madplot(say_when=1, shiteating_layover=False):
     bitchdir = Path.home() / 'x'
     dw = str(bitchdir / 'dickweasel/')
     tb = str(bitchdir / 'turdburglar/')
@@ -197,7 +219,7 @@ def madplot(say_when=1, shiteating_layover=False)
     if say_when > 5:
         shiteating_layover = True
     d_args = []
-    if shiteating_layover = True:
+    if shiteating_layover == True:
         d_args = ['-d', se]
     mdmx = ['chia_plot',
             '-n', say_when,
@@ -210,33 +232,33 @@ def madplot(say_when=1, shiteating_layover=False)
             ] + d_args + [
             '-c', sppk,
             '-f', fkey]
-    madmax = Popen(mdmax)
+    madmax = Popen(mdmx)
     madmax.wait()
 
 
-madflag = False
-numplots = 1
-layover = False
-optns = getopt.getopt(sys.argv[1:], 'mns', ['solo',
-                                            'mad',
-                                            'madonly'
-                                            'num=',
-                                            'plots='
-                                            'numplots='
-                                            'shit'
-                                            'shitlay'
-                                            'eatshit'
-                                            ])
-for opt, arg in optns:
-    if opt in ('-m', '--solo', '--mad', '--madonly'):
-        madflag = True
-    elif opt in ('-n', '--num', '--plots', '--numplots'):
-        numplots = arg
-    elif opt in ('-s', '--shit', '--shitlay', '--eatshit'):
-        layover = True
+# madflag = False
+# numplots = 1
+# layover = False
+# optns = getopt.getopt(sys.argv[1:], 'mns', ['solo',
+#                                             'mad',
+#                                             'madonly',
+#                                             'num=',
+#                                             'plots=',
+#                                             'numplots=',
+#                                             'shit',
+#                                             'shitlay',
+#                                             'eatshit'
+#                                             ])
+# for opt, arg in optns:
+#     if opt in ('-m', '--solo', '--mad', '--madonly'):
+#         madflag = True
+#     elif opt in ('-n', '--num', '--plots', '--numplots'):
+#         numplots = arg
+#     elif opt in ('-s', '--shit', '--shitlay', '--eatshit'):
+#         layover = True
 
 if __name__ == '__main__':
-    if madflag = True:
-        madplot(numplots, layover)
-    elif madflag = False:
-        shitplot()
+    # if madflag == True:
+    #     madplot(numplots, layover)
+    # elif madflag == False:
+    shitplot()
